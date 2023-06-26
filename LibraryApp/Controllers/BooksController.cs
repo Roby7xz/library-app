@@ -154,7 +154,7 @@ namespace LibraryApp.Controllers
             if (book == null)
             {
                 book = new Book();
-                book.ImageName = PathConstants.BooksFolderPath + "/default-book-cover.jpg";
+                book.ImageName = "/images/books/default-book-cover.jpg";
                 await _applicationDbContext.AddAsync(book);
             }
          
@@ -168,7 +168,7 @@ namespace LibraryApp.Controllers
             if (createOrUpdateSaveModel.Image != null)
             {
 
-                if(book.ImageName != PathConstants.BooksFolderPath + "/default-book-cover.jpg")
+                if(book.ImageName != "/images/books/default-book-cover.jpg")
                 {
                     FileHelper.DeleteFile(book.ImageName);
                 }

@@ -79,7 +79,7 @@ namespace LibraryApp.Controllers
 
             var user = new ApplicationUser();
 
-            user.ProfilePicture = FileHelper.UploadFile(PathConstants.ProfilesFolderPath, register.ProfilePictureFile) ?? PathConstants.ProfilesFolderPath + "/default-profile-image.png";
+            user.ProfilePicture = FileHelper.UploadFile(PathConstants.ProfilesFolderPath, register.ProfilePictureFile) ?? "/images/profiles/default-profile-image.png";
             user.FirstName = register.FirstName;
             user.LastName = register.LastName;
 

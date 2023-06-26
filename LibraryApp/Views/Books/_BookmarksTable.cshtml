@@ -17,7 +17,7 @@
         @foreach (var book in Model.Books)
         {
             <div class="table-body-inner">
-                <div class="body-item"><img onclick="showZoomedInImage(event)" class="modal_body_item icon-hover" src="/@book.ImageName" height="50" width="50" alt="Book-Cover" /></div>
+                <div class="body-item"><img onclick="showZoomedInImage(event)" class="modal_body_item icon-hover" src="@book.ImageName" height="50" width="50" alt="Book-Cover" /></div>
                 <div class="body-item">@book.Author?.Name @(book.Author?.Age != null ? " (" + book.Author?.Age + ")" : null)</div>
                 <div class="body-item">@book.Title</div>
                 <div class="body-item">@book.Description</div>

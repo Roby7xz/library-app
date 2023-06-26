@@ -7,7 +7,7 @@
             <i id="close" onclick="hideModal()" class="fa-solid fa-xmark fa-xl icon-hover"></i>
         </div>
         <div class="modal_body">
-            <img onclick="showZoomedInImage(event)" class="modal_body_item" src="~/images/books/@Model.ImageName" height="50" width="50" alt="Book-Cover" />
+            <img onclick="showZoomedInImage(event)" class="modal_body_item" src="@Model.ImageName" height="50" width="50" alt="Book-Cover" />
             <div><span class="modal_body_item">Author:</span>  @Model?.Author?.Name</div>
             <div><span class="modal_body_item">Title:</span>  @Model?.Title</div>
             <div><span class="modal_body_item">Desc:</span>  @Model?.Description</div>

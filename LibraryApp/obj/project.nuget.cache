@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aYewKDYRyji9ZJS463bLzoJSbEFay7x8QA7QEuVanUS3dRSQq+t6Acqxvpz3xU6WdWaDKocaHNXVLMOpMt2Q4g==",
+  "dgSpecHash": "aPKIBLKUYAkP93z2fHy4xhngjFI3JsFQjT9a05HKdtGqnNMIiUIVn8wVR8ADOGEx1a+cPc8Oq3PlZYeUOyDCxg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hotelstouch\\source\\library-app\\LibraryApp\\LibraryApp.csproj",
+  "projectFilePath": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hotelstouch\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Hotelstouch\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
