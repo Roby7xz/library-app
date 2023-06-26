@@ -1,0 +1,107 @@
+﻿@use "utils" as *;
+
+.table-title-wrapper {
+    margin: 20px 0px;
+    @include flex-center-content;
+
+    @include size_XS {
+        margin: 10px 0;
+    }
+
+    h1 {
+        @include size_XS {
+            font-size: 20px;
+        }
+    }
+
+    .button {
+        @include size_XS {
+            width: 100px;
+            margin: 0;
+            padding: 4px;
+            font-size: 12px;
+        }
+    }
+}
+
+.table {
+    width: auto;
+
+    &-header {
+        font-size: $font-size-md;
+        font-weight: $font-weight-regular;
+        @include flex-row;
+        gap: 12px;
+        padding: 8px;
+
+        @include size_XS {
+            gap: 6px;
+            padding: 4px;
+            font-size: 10px;
+        }
+    }
+
+    .header-item {
+        background-color: rgba(209, 2, 2, 0.2);
+        border-radius: 10px;
+    }
+
+    .header-item, .body-item {
+        padding: 8px;
+        @include flex-center-content;
+        flex: 1 1 0;
+
+        @include size_XS {
+            padding: 2px;
+            font-size: 10px;
+        }
+    }
+
+    .body-item {
+        img {
+            @include size_XS {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+    .body-item.options {
+        gap: 5px;
+    
+        @include size_XS {
+            gap: 2px;
+        }
+    }
+    
+    &-body {
+        @include flex-column;
+        gap: 10px;
+    
+        &-inner {
+            transition: all .2s ease-in;
+            border: 1px solid #bdc3c7;
+            border-radius: 10px;
+            @include flex-row;
+            flex-wrap: wrap;
+            padding: 8px;
+    
+            &:hover {
+                background-color: whitesmoke;
+                border: 1px solid transparent;
+                transform: scale(1.02);
+                box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+            }
+    
+            @include size_XS {
+                padding: 4px;
+                font-size: 10px;
+                flex: 1 1 0;
+            }
+        }
+    
+        @include size_XS {
+            gap: 4px;
+        }
+    }
+}
+

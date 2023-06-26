@@ -1,0 +1,72 @@
+﻿.manage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
+}
+.manage-container-left, .manage-container-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  width: 50%;
+}
+.manage-container-right {
+  background-image: linear-gradient(to bottom right, rgb(1, 251, 170), rgb(0, 0, 0));
+  justify-content: center;
+  max-width: 450px;
+  height: 250px;
+  gap: 15px;
+  margin-left: -85px;
+  box-shadow: 10px 10px 9px rgba(0, 0, 0, 0.3);
+}
+.manage-container-right .button {
+  background-color: rgba(206, 2, 2, 0.5);
+  margin-left: 75px;
+  width: 200px;
+}
+.manage-container-right .button:hover {
+  background-color: rgba(206, 2, 2, 0.5);
+}
+@media (max-width: 870px) {
+  .manage-container-right .button {
+    margin: auto;
+    margin-top: 0;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    width: 200px;
+  }
+}
+@media (max-width: 500px) {
+  .manage-container-right .button {
+    font-size: 12px;
+    width: 150px;
+  }
+}
+@media (max-width: 870px) {
+  .manage-container-right {
+    margin: 0;
+    margin-top: -50px;
+    padding-top: 50px;
+    width: 75%;
+  }
+}
+.manage-container-left {
+  height: 400px;
+  background: url("../../images/manage-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  justify-content: space-between;
+  color: white;
+  z-index: 1;
+}
+@media (max-width: 870px) {
+  .manage-container-left {
+    width: 100%;
+  }
+}
+@media (max-width: 870px) {
+  .manage-container {
+    flex-direction: column;
+  }
+}

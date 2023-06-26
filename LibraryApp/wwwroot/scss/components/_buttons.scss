@@ -1,0 +1,47 @@
+﻿@use "../utils" as *;
+
+.icon-hover:hover {
+    cursor: pointer;
+}
+
+
+#profile-button {
+    margin: 0px 20px;
+}
+
+#profile-button, #logout-button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+
+.button {
+    display: inline-block;
+    background-color: #b00000;
+    border-radius: 1000px;
+    color: white;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    width: 150px;
+    box-shadow: 2px 5px rgba(0,0,0,0.3);
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-align: center;
+    margin: 15px 0;
+
+    &:hover {
+        color: white;
+        box-shadow: 2px 5px rgba(209,2,2,0.6);
+    }
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}

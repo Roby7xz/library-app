@@ -1,0 +1,60 @@
+﻿@using LibraryApp.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<partial name="_ToggleThemePartial" />
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = UserManager.FindByEmailAsync(User.Identity?.Name).Result;
+
+        <li class="nav-item">
+            <button onclick="toggleProfileMenu()" class="btn nav-link" type="button">
+                <img src="@user?.ProfilePicture" class="profile_picture_icon" /> @user?.FirstName @user?.LastName
+            </button>
+                <div class="profile-dropdown-content">
+                    <div class="profile-dropdown-header">
+                        @UserManager.GetRolesAsync(user).Result.First()
+                    </div>
+                    <a asp-controller="Account" asp-action="Manage" title="Manage">
+                        <i class="fa-solid fa-cog"></i> Manage
+                    </a>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                        <button id="logout-button" type="submit">
+                            <i class="fa-solid fa-sign-out"></i> Logout
+                        </button>
+                    </form>
+                </div>              
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>
+
+<script>
+
+    function toggleProfileMenu () {
+
+        if (!$(".profile-dropdown-content").hasClass("profile-dropdown-show")) {
+            $(".profile-dropdown-content").addClass("profile-dropdown-show");
+        } 
+        else {
+            $(".profile-dropdown-content").addClass("profile-dropdown-hide");
+
+            setTimeout(function () {
+                $(".profile-dropdown-content").removeClass("profile-dropdown-show");
+                $(".profile-dropdown-content").removeClass("profile-dropdown-hide");
+            }, 800);
+        }
+    }
+
+</script>

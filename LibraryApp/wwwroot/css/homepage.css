@@ -1,0 +1,23 @@
+﻿.hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../images/welcome-page-bg.jpg") no-repeat center;
+  background-size: cover;
+  height: 300px;
+  border-radius: 10px;
+  /*margin-top: 75px;*/
+}
+.hero-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+.hero-content h1 {
+  font-size: 36px;
+}
+.hero-content p {
+  font-size: 18px;
+}

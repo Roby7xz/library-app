@@ -1,0 +1,101 @@
+﻿/* DARK THEME */
+@use "../utils" as *;
+
+body.dark-theme {
+    background-color: $bg-color-dark;
+    color: white !important;
+
+    .navbar-container {
+        background-color: $bg-color-dark;
+        border-bottom: 1px solid white;
+    }
+
+
+    a, .nav-link, .table {
+        color: inherit;
+    }
+
+
+    .modal {
+
+        &_overlay {
+            background-color: rgba(255,255,255,0.7);
+            color: inherit;
+        }
+
+        &_header {
+            background-color: $bg-color-dark;
+            border-bottom: 1px solid white;
+        }
+
+        &_container {
+            background-color: $bg-color-dark;
+            color: inherit;
+        }
+    }
+
+    .footer {
+        background-color: inherit;
+        color: inherit;
+        border-top: 1px solid white;
+    }
+
+    .hero-content {
+        h1, p {
+            color: inherit;
+        }
+    }
+
+    .table-body-inner:hover {
+        background-color: gray;
+    }
+
+    .profile-dropdown-content {
+        background-color: black;
+        box-shadow: 2px 4px 10px rgba(255,255,255,0.7);
+    }
+
+    .button {
+        color: $text-color-light;
+        box-shadow: 2px 5px rgba(209,2,2,0.3);
+
+        &:hover {
+            box-shadow: 2px 5px rgba(209,2,2,0.6);
+        }
+    }
+
+    .credentials_container {
+        box-shadow: 10px 10px 15px rgb(212, 213, 214);
+        color: $text-color-dark;
+    }
+} 
+
+/* LIGHT THEME */
+body.light-theme {
+    background-color: $bg-color-light;
+    color: black !important;
+
+    a, .nav-link {
+        color: inherit;
+    }
+
+
+    .modal {
+        &_overlay {
+            background-color: rgba(0,0,0,0.7);
+            color: inherit;
+        }
+
+        &_header {
+            border-bottom: 1px solid black;
+            color: inherit;
+        }
+    }
+
+    .button {
+        color: $text-color-light;
+    }
+}
+
+
+

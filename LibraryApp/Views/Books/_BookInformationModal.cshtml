@@ -1,0 +1,18 @@
+﻿@model LibraryApp.Models.Domain.Book
+
+<div class="modal_overlay">
+    <div class="modal_container">
+        <div class="modal_header">
+            <h4>Details</h4>
+            <i id="close" onclick="hideModal()" class="fa-solid fa-xmark fa-xl icon-hover"></i>
+        </div>
+        <div class="modal_body">
+            <img onclick="showZoomedInImage(event)" class="modal_body_item" src="~/images/books/@Model.ImageName" height="50" width="50" alt="Book-Cover" />
+            <div><span class="modal_body_item">Author:</span>  @Model?.Author?.Name</div>
+            <div><span class="modal_body_item">Title:</span>  @Model?.Title</div>
+            <div><span class="modal_body_item">Desc:</span>  @Model?.Description</div>
+            <div><span class="modal_body_item">Genre:</span>  @Model?.Genre</div>
+            <div><span class="modal_body_item">Pages:</span>@Model?.Pages</div>
+        </div>        
+    </div>
+</div>

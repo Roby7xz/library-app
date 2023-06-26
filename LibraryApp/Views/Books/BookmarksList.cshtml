@@ -1,0 +1,75 @@
+﻿<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
+
+<h1>List of bookmarks</h1>
+
+<div id="bookmark-list">
+</div>
+
+<script>
+    function getBookmarksTable() {
+        showLoader();
+
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetBookmarksTable",
+            success: function (data) {
+                $("#bookmark-list").html(data);
+                hideLoader();
+            }
+        });
+    }
+
+    getBookmarksTable();
+
+    function deleteBook(bookId) {
+
+        showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: "/Books/Delete",
+            dataType: "JSON",
+            data: {
+                BookId: bookId
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                    hideLoader();
+                    getTable();
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1, function () {
+                        hideLoader();
+                        getTable();
+                    });
+                }
+            }
+        });
+    }
+
+    function toggleBookmark(bookId) {
+        showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: "/Books/ToggleBookmark",
+            dataType: "JSON",
+            data: {
+                bookId: bookId
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                    getBookmarksTable();
+                    hideLoader();
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);
+                    hideLoader();
+                }
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,17 @@
+﻿@model List<LibraryApp.Models.Domain.Author>
+
+<div class="table">
+    <div class="table-header">
+        <div class="header-item">Author Name</div>
+        <div class="header-item">Age</div>
+    </div>
+    <div class="table-body">
+        @foreach (var author in Model)
+        {
+            <div class="table-body-inner">
+                <div class="body-item">@author.Name</div>
+                <div class="body-item">@author.Age</div>
+            </div>
+        }
+    </div>
+</div>

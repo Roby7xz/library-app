@@ -1,0 +1,44 @@
+﻿
+@use "../utils" as *;
+
+#loader {
+    @include flex-center-content;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 101;
+
+    div {
+        box-sizing: border-box;
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        border: 8px solid transparent;
+        animation: spinner $animation-speed linear infinite;
+
+        &:nth-of-type(2) {
+            border: 8px solid transparent;
+        }
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+        border-width: 10px;
+        border-top-color: magenta;
+    }
+
+    50% {
+        transform: rotate(180deg);
+        border-width: 1px;
+        border-bottom-color: magenta;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        border-width: 10px;
+    }
+}

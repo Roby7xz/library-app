@@ -1,0 +1,63 @@
+﻿@model List<LibraryApp.Models.Domain.Author>
+@using LibraryApp.Areas.Identity.Data;
+@using LibraryApp.Helpers;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
+
+<div class="table-title-wrapper">
+    <h1>List of authors</h1>
+
+    @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+    {
+        <a class="button" asp-controller="Authors" asp-action="CreateOrUpdateAuthor">
+            Add Author
+        </a>
+    }
+</div>
+
+<div class="table">
+    <div class="table-header">
+        <div class="header-item">Author Name</div>
+        <div class="header-item">Age</div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="header-item">Options</div>
+        }
+    </div>
+    <div class="table-body">
+        @foreach (var author in Model)
+        {
+            <div class="table-body-inner">
+                <div class="body-item">@author.Name</div>
+                <div class="body-item">@author.Age</div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="body-item options" href="Authors/CreateOrUpdateAuthor/@author.Id">View</a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<h3>Viewed Authors</h3>
+
+<div id="viewed-authors-list"></div>
+
+<script>
+    function getViewedAuthorsTable() {
+        $.ajax({
+            type: "GET",
+            url: "/Authors/GetViewedAuthors",
+            success: function (data) {
+                $("#viewed-authors-list").html(data);
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        getViewedAuthorsTable();
+    });
+
+   
+</script>

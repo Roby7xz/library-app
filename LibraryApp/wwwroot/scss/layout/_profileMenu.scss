@@ -1,0 +1,65 @@
+﻿@use "../utils" as *;
+
+.profile-dropdown {
+
+    &-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        border-bottom: 1px solid;
+    }
+
+    &-content {
+        z-index: 2;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        height: 100px;
+        width: 162px;
+        right: 20px;
+        top: 50px;
+        border-radius: 5px;
+        box-shadow: 8px 8px 8px rgba(0,0,0,0.7);
+
+        @include size_XXS {
+            top: 72px;
+            right: 60px;
+        }
+
+        &.profile-dropdown-show {
+            @include flex-center-content;
+            flex-direction: column;
+            gap: 14px;
+            animation: slideLeft $animation-speed linear both;
+        }
+
+        &.profile-dropdown-hide {
+            animation: slideRight $animation-speed linear both;
+        }
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(10%);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 1;
+        
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(10%);
+    }
+}

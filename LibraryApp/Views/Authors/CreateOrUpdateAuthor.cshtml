@@ -1,0 +1,73 @@
+﻿
+@model LibraryApp.Models.Authors.CreateOrUpdateAuthorViewModel
+@using LibraryApp.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<h1>@(Model.Author?.Id > 0 ? "Edit author" : "Add author")</h1>
+
+
+<form id="CreateEditForm" class="form">
+    <input type="hidden" id="Id" name="Id" value="@Model.Author?.Id">
+    <div class="form_row">
+        <label for="">Author Name</label>
+        <input type="text" class="form_input" id="Name" name="Name" value="@Model.Author?.Name" placeholder="Enter author name">
+    </div>
+    <div class="form_row">
+        <label for="">Author Age</label>
+        <input type="text" class="form_input" id="Age"  name="Age" value="@Model.Author?.Age" placeholder="Enter author age">
+    </div>
+    @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+    {
+        <button type="button" onclick="onSave()" class="button mt-3">Submit</button>
+        <button type="button" onclick="onDelete()" class="button mt-3">Delete</button>
+    }
+</form>
+
+<script>
+    function onSave() {
+
+        $.ajax({
+            type: "POST",
+            url: "/Authors/CreateOrUpdateAuthor",
+            dataType: "JSON",
+            data: {
+                Id: $("#Id").val(),
+                Name: $("#Name").val(),
+                Age: $("#Age").val(),
+            },
+            success: function (data) {
+                if (data.statusCode == 0) {
+                    window.location.href="/Authors";
+                }
+                else {
+                    console.log(data.message);
+                }
+
+            }
+        });
+    }
+
+    function onDelete() {
+        $.ajax({
+            type: "POST",
+            url: "/Authors/Delete",
+            dataType: "JSON",
+            data: {
+                Id: $("#Id").val(),
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {     
+                    alertify.notify(data.message, 'success', 1, function () { window.location.href = "/Authors"; }); 
+                }
+                else {
+                    alertify.notify(data.message, 'error', 2);
+                }
+            }
+        });
+
+    
+    }
+</script>

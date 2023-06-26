@@ -1,0 +1,29 @@
+﻿@use "utils" as *;
+
+.hero {
+    &-container {
+        @include flex-center-content;
+        background: url("../../images/welcome-page-bg.jpg") no-repeat center;
+        background-size: cover;
+        height: 300px;
+        border-radius: 10px;
+        /*margin-top: 75px;*/
+    }
+
+    &-content {
+        @include flex-center-content;
+        flex-direction: column;
+        color: white;     
+
+        h1 {
+            font-size: $font-size-xxl;
+        }
+
+        p {
+            font-size: $font-size-lg;
+        }
+    }
+}
+
+
+

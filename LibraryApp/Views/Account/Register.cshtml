@@ -1,0 +1,92 @@
+﻿<link rel="stylesheet" href="~/css/credentials.min.css" asp-append-version="true" />
+
+<div class="credentials_container">
+    <form id="RegisterForm" class="form">
+        <h2>Create account</h2>
+        <div class="form_row_upload">
+            <label class="form_label">Profile Picture</label>
+            <div class="image_preview">
+                <img id="image_preview" src="@Model?.ProfilePicture" />
+            </div>
+            <label for="ProfilePictureFile" class="form_label_upload icon-hover"><i class="fa-solid fa-plus fa-lg"></i></label>
+            <input onchange="showPreviewImage(event)" hidden class="form_input" type="file" accept="image/*" id="ProfilePictureFile" name="ProfilePictureFile" placeholder="Profile Picture">
+        </div>
+        <div class="form_row">
+            <input id="FirstName" name="FirstName" class="form_input" placeholder="Enter Firstname" />
+        </div >
+        <div class="form_row">
+            <input id="LastName" name="LastName" class="form_input" placeholder="Enter Lastname" />
+        </div>
+        <div class="form_row">
+            <input id="Email" name="Email" class="form_input" placeholder="Enter Email" />
+        </div>
+        <div class="form_row">
+            <input type="password" id="Password" name="Password" class="form_input" placeholder="Enter Password" />
+        </div>     
+        <button type="button" onclick="registerSubmit()" class="button">Register</button>
+    </form>
+    <div class="credentials_image_box">
+        <img src="~/images/register-image.png" width="300px" height="400px" alt="Reg-Img"/>
+    </div>
+</div>
+
+
+<script>
+
+    $("#RegisterForm").validate({
+        rules: {
+            ProfilePictureFile: {
+                accept: "image/*"
+            },
+            FirstName: {
+                required: true,
+            },
+            LastName: {
+                required: true,
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            Password: {
+                required: true,
+                minlength: 6
+            },
+        },
+        messages: {
+            ProfilePictureFile: {
+                accept: "Invalid image format."
+            }
+        },
+        ignore: "hidden"
+    });
+
+    function registerSubmit() {
+        showLoader();
+
+        if (!$("#RegisterForm").valid()) {
+            hideLoader();
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/Register",
+            contentType: false,
+            processData: false,
+            data: new FormData($("#RegisterForm")[0]),
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1, function () {
+                        window.location.href = "/Books/List";
+                    });
+
+                } else {
+                    alertify.notify(data.message, 'error', 1);
+                    hideLoader();
+                }
+
+            }
+        });
+    }
+</script>

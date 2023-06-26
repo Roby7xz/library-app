@@ -1,0 +1,19 @@
+﻿@using LibraryApp.Helpers;
+<link rel="stylesheet" href="~/css/manage.min.css" asp-append-version="true" />
+
+<div class="manage-container">
+    <div class="manage-container-left">
+        <h3>Manage account</h3>
+
+        <div class="time-header">
+            <h5>Session started at:</h5>
+            <p> @LoggedInUser.GetCurrent()?.LoggedInTime.ToString("dd/MM/yyyy HH:mm")</p>
+        </div>
+    </div>
+    <div class="manage-container-right">
+        <a class="button" id="profile" asp-controller="Account" asp-action="ChangeAccountInfo">Change Profile Info</a>
+        <a class="button" id="email" asp-controller="Account" asp-action="ChangeAccountEmail">Email</a>
+        <a class="button" id="change-password" asp-controller="Account" asp-action="ChangeAccountPassword">Password</a>
+    </div> 
+</div>
+
