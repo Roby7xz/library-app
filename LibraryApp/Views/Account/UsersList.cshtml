@@ -1,0 +1,68 @@
+﻿<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
+
+<h1>List of users</h1>
+
+<div id="users-list">
+</div>
+
+<script>
+
+    function getUsersTable() {
+        showLoader();
+
+        $.ajax({
+            type: "GET",
+            url: "/Account/GetUsersTable",
+            success: function (data) {
+                $("#users-list").html(data);
+                hideLoader();
+            }
+        });
+    }
+
+    getUsersTable();
+
+    function onChangeUserRole(userId) {
+        showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/ChangeUserRole",
+            dataType: "JSON",
+            data: {
+                UserId: userId,
+                RoleId: $("#SelectedRoleId_" + userId).val()
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);         
+                }
+                hideLoader();
+            }
+        });
+    }
+
+    function deleteUser(userId) {
+        $.ajax({
+            type: "POST",
+            url: "/Account/DeleteUser",
+            dataType: "JSON",
+            data: { Id: userId },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);
+                }
+
+                getUsersTable();
+                hideLoader();
+            }
+        });
+    }
+
+</script>

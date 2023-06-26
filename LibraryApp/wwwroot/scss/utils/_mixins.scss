@@ -1,0 +1,52 @@
+﻿@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@mixin size_XXS {
+    @media (max-width: 320px) {
+        @content;
+    }
+}
+
+@mixin size_XS {
+    @media (max-width: 500px) {
+        @content;
+    }
+}
+
+@mixin size_S {
+    @media (max-width: 650px) {
+        @content;
+    }
+}
+
+@mixin size_M {
+    @media (max-width: 870px) {
+        @content;
+    }
+}
+
+@mixin size_L {
+    @media (max-width: 1100px) {
+        @content;
+    }
+}
+
+@mixin size_XL {
+    @media (max-width: 1300px) {
+        @content;
+    }
+}

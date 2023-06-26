@@ -1,0 +1,25 @@
+﻿@model List<LibraryApp.Models.Domain.Book>
+
+<div class="table">
+    <div class="table-header">
+        <div class="header-item">Cover</div>
+        <div class="header-item">Author</div>
+        <div class="header-item">Title</div>
+        <div class="header-item">Description</div>
+        <div class="header-item">Genre</div>
+        <div class="header-item">Pages</div>
+    </div>
+    <div class="table-body">
+        @foreach (var book in Model)
+        {
+            <div class="table-body-inner">
+                <div class="body-item"><img onclick="showZoomedInImage(event)" src="/@book.ImageName" class="img_fit icon-hover" height="50" width="50" alt="Book-Cover" /></div>
+                <div class="body-item">@book.Author?.Name @(book.Author?.Age != null ? " (" + book.Author?.Age + ")" : null)</div>
+                <div class="body-item">@book.Title</div>
+                <div class="body-item">@book.Description</div>
+                <div class="body-item">@book.Genre</div>
+                <div class="body-item">@book.Pages</div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿@model LibraryApp.Models.Books.BookViewModel
+@using LibraryApp.Areas.Identity.Data;
+@using LibraryApp.Models.Domain;
+@using Microsoft.AspNetCore.Identity
+@using System.Text.Json;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
+
+<div class="table-title-wrapper">
+    <h1>List of books</h1>
+
+    @{
+        if (SignInManager.IsSignedIn(User) && (User.IsInRole("SuperAdmin") || User.IsInRole("SuperAdmin")))
+        {
+            <a class="button" onclick="showModal(null, '/Books/CreateOrUpdateBook')">
+                Add Book
+            </a>
+        }
+    }
+   
+</div>
+
+<div id="book-list"></div>
+
+
+<h5>Already viewed</h5>
+
+
+<div id="viewed-books-list-body"></div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        getTable();
+        getViewedBooksTable();
+    });
+
+    function getTable() {
+        showLoader();
+        
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetBooksTable",
+            success: function (data) {
+                $("#book-list").html(data);
+                hideLoader();
+            }
+        });
+    }
+
+    function toggleBookmark(bookId) {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: "/Books/ToggleBookmark",
+            dataType: "JSON",
+            data: {
+                bookId: bookId
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);               
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);
+                }
+
+                getTable();
+                hideLoader();
+            }
+        });
+    }
+
+    function deleteBook(bookId) {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: "/Books/Delete",
+            dataType: "JSON",
+            data: {Id: bookId},
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);                  
+                }
+                else {      
+                    alertify.notify(data.message, 'error', 1);
+                }
+                getTable();
+                hideLoader();
+            }
+        });
+    }
+
+    function getViewedBooksTable() {
+        showLoader();
+
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetViewedBooks",
+            success: function (data) {
+                var bodyContent = $("#viewed-books-list-body");
+                bodyContent.empty();
+
+                bodyContent.append(data);
+
+                hideLoader();
+            }
+        });
+    }
+
+</script>

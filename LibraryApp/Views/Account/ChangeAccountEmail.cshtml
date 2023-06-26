@@ -1,0 +1,65 @@
+﻿<div class="flex-column">
+    <h3>Change your email</h3>
+    <form id="ChangeEmailForm" class="form">
+        <div class="form_row">
+            <label class="form_label">Old Email</label>
+            <input id="Email" name="Email" class="form_input" type="email"  placeholder="Enter old email">
+        </div>
+        <div class="form_row">
+            <label class="form_label">New Email</label>
+            <input id="NewEmail" name="NewEmail" class="form_input" type="email" placeholder="Enter new email">
+        </div>
+        <button type="button" class="button" onclick="onChangeEmail()">Change Email</button>
+    </form>
+</div>
+
+
+<script>
+    var changeEmailForm = $("#ChangeEmailForm");
+
+    changeEmailForm.validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true
+            },
+            NewEmail: {
+                required: true,
+                email: true
+            }
+        }
+    });
+
+
+    function onChangeEmail() {
+
+
+        if (!changeEmailForm.valid()) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/ChangeAccountEmail",
+            dataType: "JSON",
+            data: {
+                Email: $("#Email").val(),
+                NewEmail: $("#NewEmail").val(),
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1, function () {
+                        window.location.href = "/Account/Manage"
+                    });
+                }
+                else {
+                    //validateForm(data.errors);
+                    alertify.notify(data.message, 'error', 1, function () {
+                        hideLoader();
+                    });
+                }
+            }
+        });
+
+    }
+</script>

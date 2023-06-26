@@ -1,0 +1,76 @@
+﻿@model LibraryApp.Models.Account.ChangeInfoViewModel
+
+
+<div class="flex-column">
+    <h3>Change your account info</h3>
+    <form id="ChangeInfoForm" class="form">
+        <div class="form_row_upload">
+            <label class="form_label">Profile Picture</label>
+            <div class="image_preview">
+                <img id="image_preview" src="@Model?.ProfilePicture" />
+            </div>         
+            <label for="ProfilePictureFile" class="form_label_upload icon-hover"><i class="fa-solid fa-plus fa-lg"></i></label>
+            <input onchange="showPreviewImage(event)" hidden class="form_input" type="file" accept="image/*" id="ProfilePictureFile" value="@Model?.ProfilePicture" name="ProfilePictureFile" placeholder="Profile Picture">
+        </div>
+        <div class="form_row">
+            <label class="form_label">First Name</label>
+            <input id="FirstName" name="FirstName" class="form_input" type="text" value="@Model?.FirstName" placeholder="Enter new first name">
+        </div>
+        <div class="form_row">
+            <label class="form_label">First Name</label>
+            <input id="LastName" name="LastName" class="form_input" type="text" value="@Model?.LastName" placeholder="Enter new last name">
+        </div>
+        <button type="button" class="button" onclick="onChangeInfo()">Change Info</button>
+    </form>
+</div>
+
+
+<script>
+
+    $("#ChangeInfoForm").validate({
+        rules: {
+            ProfilePictureFile: {
+                accept: "image/*"
+            },
+            FirstName: {
+                required: true
+            },
+            LastName: {
+                required: true
+            },
+        },
+        messages: {
+            ProfilePictureFile: {
+                accept: "Invalid image format."
+            }
+        },
+        ignore: "hidden"
+    });
+
+    function onChangeInfo() {
+
+        if (!$("#ChangeInfoForm").valid()) {
+            return;
+        }
+        
+        $.ajax({
+            type: "POST",
+            url: "/Account/ChangeAccountInfo",
+            contentType: false,
+            processData: false,
+            data: new FormData($("#ChangeInfoForm")[0]),
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1, function () {
+                        window.location.href = "/Account/Manage"
+                    });
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1, function () {
+                        hideLoader();
+                    });
+                }
+            }
+        });
+    }
+</script>

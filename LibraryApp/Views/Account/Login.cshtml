@@ -1,0 +1,73 @@
+﻿<link rel="stylesheet" href="~/css/credentials.min.css" asp-append-version="true" />
+
+<div class="credentials_container">
+    <form id="LoginForm" class="form">
+        <h2>Log In</h2>
+        <div class="form_row">
+            <input id="Email" name="Email" class="form_input" placeholder="Enter Email" />
+        </div>
+        <div class="form_row">
+            <input type="password" id="Password" name="Password" class="form_input" placeholder="Enter Password" />
+        </div>
+        <button type="button" onclick="loginSubmit()" class="button">Log In</button>
+    </form>
+    <div class="credentials_image_box">
+        <img src="~/images/register-image.png" width="300px" height="400px" alt="Reg-Img" />
+    </div>
+</div>
+
+
+<script>
+    var loginForm = $("#LoginForm");
+    var rememberMe = $("#RememberMe");
+    var isChecked = false;
+
+    loginForm.validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true
+            },
+            Password: {
+                required: true,
+                minlength: 6
+            }
+        }
+    });
+   
+    function boxChecked() {
+        isChecked = true;
+    }
+   
+    function loginSubmit() {
+        showLoader();
+
+        if (!loginForm.valid()) {
+            hideLoader();
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/Login",
+            data: {
+                Email: $("#Email").val(),
+                Password: $("#Password").val(),
+                RememberMe: isChecked
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1, function () {
+                        window.location.href = "/Books/List";
+                    });
+                } else {
+                    alertify.notify(data.message, 'error', 1);
+                    hideLoader();
+                }
+
+            }
+        });
+    }
+    
+
+</script>

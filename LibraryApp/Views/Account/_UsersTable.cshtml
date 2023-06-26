@@ -1,0 +1,33 @@
+﻿@model LibraryApp.Models.Account.UsersRolesViewModel
+
+<div class="table">
+    <div class="table-header">
+        <div class="header-item">Name</div>
+        <div class="header-item">Email</div>
+        <div class="header-item">Role</div>
+        <div class="header-item">Options</div>
+    </div>
+    <div class="table-body">
+        @foreach (var user in Model.Users)
+        {
+            <div class="table-body-inner">
+                <div class="body-item"><img src="@user?.ProfilePicture" class="profile_picture_icon" /> @user?.FirstName @user?.LastName</div>
+                <div class="body-item">@user?.Email</div>
+                <div class="body-item options">
+                    <select id='SelectedRoleId_@user?.Id' onchange="onChangeUserRole('@user?.Id')" name="SelectedRoleId">
+                    <option value="0" selected disabled>- Select role -</option>
+                    @foreach (var role in Model.Roles)
+                    {
+                            var roleId = Model.UserRolesList.Find(r => r.RoleId == role.Id && r.UserId == user?.Id);
+
+                            <option value="@role.Id" selected=@(roleId != null ? "selected" : null)>@role.Name</option>
+                    }
+                    </select>
+                </div>
+                <div class="body-item">
+                    <i onclick="showConfirmationModal('Are you shure that you want to delete user: @user?.FirstName @user?.LastName?', function () {deleteUser('@user?.Id')})" class="fa-solid fa-trash fa-lg icon-hover" style="color: red;"></i>
+                </div>  
+            </div>
+        }
+    </div>
+</div>

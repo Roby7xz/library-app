@@ -1,0 +1,62 @@
+﻿@using LibraryApp.Helpers;
+@{
+    var theme = @LoggedInUser.GetCurrent()?.Theme;
+}
+
+<i 
+    id="toggle-theme-button"
+    onclick="toggleTheme()" 
+    class="fa-solid @(theme == "dark-theme" ? "fa-toggle-on" : "fa-toggle-off") fa-lg icon-hover"
+    style="color: @(theme == "dark-theme" ? "white;" : "black;")"></i>
+
+<script>
+    
+    function toggleTheme() {
+        var currentTheme = $("body").attr("class");
+
+        if(currentTheme === "light-theme") {
+            currentTheme = "dark-theme";
+        }
+        else {
+            currentTheme = "light-theme";
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/ToggleTheme",
+            data: { theme: currentTheme },
+            success: function (data) {
+                if (data.status === 0) {
+                    switchTheme(currentTheme);
+                    updateToggleIcon(currentTheme);
+                }
+            }
+        });
+    }
+
+    function switchTheme(currentTheme) {
+        if (currentTheme === "dark-theme") {
+            $("body").removeClass("light-theme");
+            $("body").addClass("dark-theme");
+        }
+
+        else {
+            $("body").removeClass("dark-theme");
+            $("body").addClass("light-theme");
+        }       
+    }
+
+    function updateToggleIcon(currentTheme) {
+        var toggleThemeIcon = $("#toggle-theme-button");
+        var navbarToggleIcon = $("#navbarToggleIcon");
+
+        var newIconClass = currentTheme === "dark-theme" ? "fa-toggle-on" : "fa-toggle-off";
+        var newIconColor = currentTheme === "dark-theme" ? "white" : "black";
+
+        toggleThemeIcon.removeClass("fa-toggle-on fa-toggle-off");
+        toggleThemeIcon.addClass(newIconClass);
+        toggleThemeIcon.css("color", newIconColor);
+        navbarToggleIcon.css("color", newIconColor);
+    }
+    
+</script>

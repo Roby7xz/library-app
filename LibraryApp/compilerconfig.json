@@ -1,0 +1,22 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/site.css",
+    "inputFile": "wwwroot/scss/site.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/credentials.css",
+    "inputFile": "wwwroot/scss/credentials.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/table.css",
+    "inputFile": "wwwroot/scss/table.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/manage.css",
+    "inputFile": "wwwroot/scss/manage.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/homepage.css",
+    "inputFile": "wwwroot/scss/homepage.scss"
+  }
+]

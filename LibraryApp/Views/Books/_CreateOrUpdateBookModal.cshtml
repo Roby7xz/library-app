@@ -1,0 +1,114 @@
+﻿@model LibraryApp.Models.Books.CreateOrUpdateBookViewModel
+
+<div class="modal_overlay">
+    <div class="modal_container">
+        <div class="modal_header">
+            <h4>@(Model?.Id > 0 ? "Edit Book" : "Add Book")</h4>
+            <i id="close" onclick="hideModal()" class="fa-solid fa-xmark fa-xl icon-hover"></i>
+        </div>
+        <div class="modal_body">
+            <form id="CreateEditBookForm" class="form">
+                <input type="hidden" id="Id" name="Id" value="@Model?.Id">
+                <div class="form_row_upload">
+                    <label class="form_label">Book Cover</label>
+                    <div class="image_preview">
+                        <img id="image_preview" src="~/images/books/@Model?.ImageName" />
+                    </div>
+                    <label for="Image" class="form_label_upload icon-hover"><i class="fa-solid fa-plus fa-lg"></i></label>
+                    <input onchange="showPreviewImage(event)" hidden accept="image/*" class="form_input" type="file" id="Image" value="@Model?.ImageName" name="Image">
+                </div>
+                <div class="form_row">
+                    <label class="form_label">Book Title</label>
+                    <input id="Title" name="Title" class="form_input" type="text" value="@Model?.Title" placeholder="Book Title">
+                </div>
+                <div class="form_row">
+                    <label class="form_label">Book Description</label>
+                    <input class="form_input" type="text" id="Description" name="Description" value="@Model?.Description" placeholder="Book Description">
+                </div>
+                <div class="flex_grid_2">
+                    <div class="form_row">
+                        <label class="form_label">Book Genre</label>
+                        <input class="form_input" type="text" id="Genre" name="Genre" value="@Model?.Genre" placeholder="Book Genre">
+                    </div>
+                    <div class="form_row">
+                        <label class="form_label">Number of pages</label>
+                        <input class="form_input" type="number" id="Pages" name="Pages" value="@Model?.Pages" placeholder="Book Pages">
+                    </div>
+                </div>
+                <div class="form_row">
+                    <label class="form_label">Pick Author</label>
+                    <select id="SelectedAuthorId" name="SelectedAuthorId" class="form_select">
+                        <option value="0" selected disabled>--- Select author ---</option>
+                        @foreach (var author in Model.ListOfAuthors)
+                        {
+                            <option value="@author.Id" selected=@(author.Id == Model.SelectedAuthorId ? "selected" : null)>@author.Name</option>
+                        }
+                    </select>
+                </div>
+                <button type="button" class="button" onclick="onSave()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        $("#CreateEditBookForm").validate({
+            rules: {
+                Image: {
+                    accept: "image/*",
+                },
+                Title: {
+                    required: true,
+                },
+                Description: {
+                    required: true,
+                },
+                Genre: {
+                    required: true,
+                },
+                Pages: {
+                    required: true,
+                    min: 1,
+                },
+                SelectedAuthorId: {
+                    required: true,
+                },
+            },
+            messages: {
+                Image: {
+                    accept: "Invalid image format."
+                }
+            },
+            ignore: "hidden"
+        });
+
+        function onSave() {
+            if (!$("#CreateEditBookForm").valid()) {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Books/CreateOrUpdateBook",
+                contentType: false,
+                processData: false,
+                data: new FormData($("#CreateEditBookForm")[0]),
+                success: function (data) {
+                    if (data.statusCode === 0) {
+                        alertify.notify(data.message, 'success', 1);
+                        hideLoader();
+                        hideModal();
+                        getTable();
+                    }
+                    else {
+                        alertify.notify(data.message, 'error', 1, function () {
+                            hideLoader();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</div>
+
+
