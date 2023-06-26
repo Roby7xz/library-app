@@ -11138,11 +11138,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj",
+      "projectUniqueName": "C:\\Users\\Hotelstouch\\source\\library-app\\LibraryApp\\LibraryApp.csproj",
       "projectName": "LibraryApp",
-      "projectPath": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj",
+      "projectPath": "C:\\Users\\Hotelstouch\\source\\library-app\\LibraryApp\\LibraryApp.csproj",
       "packagesPath": "C:\\Users\\Hotelstouch\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\obj\\",
+      "outputPath": "C:\\Users\\Hotelstouch\\source\\library-app\\LibraryApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Hotelstouch\\AppData\\Roaming\\NuGet\\NuGet.Config",
