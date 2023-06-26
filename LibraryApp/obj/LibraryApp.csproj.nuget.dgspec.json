@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hotelstouch\\source\\repos\\LibraryApp - original radi\\LibraryApp\\LibraryApp.csproj": {}
+    "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hotelstouch\\source\\repos\\LibraryApp - original radi\\LibraryApp\\LibraryApp.csproj": {
+    "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hotelstouch\\source\\repos\\LibraryApp - original radi\\LibraryApp\\LibraryApp.csproj",
+        "projectUniqueName": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj",
         "projectName": "LibraryApp",
-        "projectPath": "C:\\Users\\Hotelstouch\\source\\repos\\LibraryApp - original radi\\LibraryApp\\LibraryApp.csproj",
+        "projectPath": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\LibraryApp.csproj",
         "packagesPath": "C:\\Users\\Hotelstouch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hotelstouch\\source\\repos\\LibraryApp - original radi\\LibraryApp\\obj\\",
+        "outputPath": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hotelstouch\\AppData\\Roaming\\NuGet\\NuGet.Config",
