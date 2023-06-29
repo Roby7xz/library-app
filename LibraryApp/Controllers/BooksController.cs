@@ -22,10 +22,8 @@ namespace LibraryApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult List([FromQuery] string selectedAuthorId)
+        public IActionResult List()
         {
-
-            Console.WriteLine(selectedAuthorId);
 
             var filterModel = new FilterBookViewModel();
 
@@ -36,33 +34,31 @@ namespace LibraryApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBooksTable(FilterBookSaveModel filterBookModel)
-            {
+        public async Task<IActionResult> GetBooksTable([FromQuery] FilterBookSaveModel filterBookModel)
+        {
             var viewModel = new BookViewModel();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var filteredBooks = _applicationDbContext.Books.Include("Author").Include("BookGenre");
+            var filteredBooks = await _applicationDbContext.Books.Include("Author").Include("BookGenre").ToListAsync();
 
-            var filteredBookIds = filteredBooks.Select(b => b.Id).ToList();
+            var filteredBookIds = filteredBooks.Select(b => b.Id); 
 
             if (filterBookModel.SelectedAuthorId != null)
             {
-                filteredBooks = filteredBooks.Where(b => b.AuthorId == filterBookModel.SelectedAuthorId);
+                filteredBooks = filteredBooks.Where(b => b.AuthorId == filterBookModel.SelectedAuthorId).ToList();
             }
 
             if (filterBookModel.SelectedBookGenreId != null)
             {
-                filteredBooks = filteredBooks.Where(b => b.BookGenreId == filterBookModel.SelectedBookGenreId);
+                filteredBooks = filteredBooks.Where(b => b.BookGenreId == filterBookModel.SelectedBookGenreId).ToList();
             }
 
             if (!string.IsNullOrEmpty(filterBookModel.SearchKeyword))
             {
-                filteredBooks = filteredBooks.Where(b => b.Title.Contains(filterBookModel.SearchKeyword));
-            }
-            
-            
+                filteredBooks = filteredBooks.Where(b => b.Title.Contains(filterBookModel.SearchKeyword)).ToList();
+            }        
 
-            viewModel.Books = await filteredBooks.ToListAsync();
+            viewModel.Books = filteredBooks;
             viewModel.Bookmarks = await _applicationDbContext.Bookmarks
                                  .Where(x => x.User.Id == userId && filteredBookIds.Contains(x.BookId))
                                  .ToListAsync();
