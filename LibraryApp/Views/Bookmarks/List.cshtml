@@ -56,18 +56,18 @@
             url: "/Books/Delete",
             dataType: "JSON",
             data: {
-                BookId: bookId
+                Id: bookId
             },
             success: function (data) {
                 if (data.statusCode === 0) {
                     alertify.notify(data.message, 'success', 1);
                     hideLoader();
-                    getTable();
+                    getBookmarksTable();
                 }
                 else {
                     alertify.notify(data.message, 'error', 1, function () {
                         hideLoader();
-                        getTable();
+                        getBookmarksTable();
                     });
                 }
             }

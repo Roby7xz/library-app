@@ -29,7 +29,7 @@
                         if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
                         {
                             <i onclick="showModal(@book.Id, '/Books/CreateOrUpdateBook')" class="fa-solid fa-pen-to-square fa-lg icon-hover" style="color: #b00000;"></i>
-                            <i onclick="showConfirmationModal('@book.Id', '/Books/Delete', '@message')" class="fa-solid fa-trash fa-lg icon-hover" style="color: #b00000;"></i>
+                            <i onclick="showConfirmationModal('Are you shure that you want to delete book: @book.Title?', function () {deleteBook('@book.Id')})" class="fa-solid fa-trash fa-lg icon-hover" style="color: #b00000;"></i>
                         }
                     }
                     <i onclick="showModal(@book.Id, '/Books/Info')" class="fa-solid fa-circle-info fa-lg icon-hover" style="color: #b00000;"></i>
