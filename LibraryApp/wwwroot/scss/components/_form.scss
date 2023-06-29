@@ -82,4 +82,12 @@ h1 {
     h2 {
         margin-top: 15px;
     }
+
+    &_filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+    }
 }

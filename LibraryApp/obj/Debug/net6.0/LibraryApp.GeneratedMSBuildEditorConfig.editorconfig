@@ -64,20 +64,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xfVmlld2VkQXV0aG9yc1RhYmxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/BookmarksList.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcQm9va21hcmtzTGlzdC5jc2h0bWw=
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Bookmarks/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va21hcmtzXExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Bookmarks/_BookmarksTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va21hcmtzXF9Cb29rbWFya3NUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_BookInformationModal.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcX0Jvb2tJbmZvcm1hdGlvbk1vZGFsLmNzaHRtbA==
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_BookFilter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcX0Jvb2tGaWx0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_BookmarksTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcX0Jvb2ttYXJrc1RhYmxlLmNzaHRtbA==
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_BookInformationModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcX0Jvb2tJbmZvcm1hdGlvbk1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_BooksTable.cshtml]
@@ -90,6 +94,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Books/_ViewedBooksTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcX1ZpZXdlZEJvb2tzVGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Genres/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Genres/_CreateOrUpdateGenreModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXF9DcmVhdGVPclVwZGF0ZUdlbnJlTW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Genres/_GenresTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXF9HZW5yZXNUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Hotelstouch/source/repos/library-app/LibraryApp/Views/Home/Index.cshtml]

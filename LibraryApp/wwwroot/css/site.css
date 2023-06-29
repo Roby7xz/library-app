@@ -85,6 +85,13 @@ a {
   display: none;
 }
 
+.flex_row {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -276,6 +283,12 @@ h1 {
 }
 .form h2 {
   margin-top: 15px;
+}
+.form_filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 #loader {

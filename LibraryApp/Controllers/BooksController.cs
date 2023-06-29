@@ -5,11 +5,8 @@ using LibraryApp.Models;
 using LibraryApp.Models.Books;
 using LibraryApp.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Net;
 using System.Security.Claims;
 
 namespace LibraryApp.Controllers
@@ -25,29 +22,58 @@ namespace LibraryApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult List()
+        public IActionResult List([FromQuery] string selectedAuthorId)
         {
-            return View();
+
+            Console.WriteLine(selectedAuthorId);
+
+            var filterModel = new FilterBookViewModel();
+
+            filterModel.ListOfAuthors = _applicationDbContext.Authors.ToList();
+            filterModel.ListOfBookGenres = _applicationDbContext.BookGenres.ToList();
+
+            return View(filterModel);
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetBooksTable()
-        {
+        public async Task<IActionResult> GetBooksTable(FilterBookSaveModel filterBookModel)
+            {
             var viewModel = new BookViewModel();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            viewModel.Bookmarks = await _applicationDbContext.Bookmarks.Where(x => x.User.Id == userId).ToListAsync();
-            viewModel.Books = await _applicationDbContext.Books.Include("Author").ToListAsync();
+            var filteredBooks = _applicationDbContext.Books.Include("Author").Include("BookGenre");
+
+            var filteredBookIds = filteredBooks.Select(b => b.Id).ToList();
+
+            if (filterBookModel.SelectedAuthorId != null)
+            {
+                filteredBooks = filteredBooks.Where(b => b.AuthorId == filterBookModel.SelectedAuthorId);
+            }
+
+            if (filterBookModel.SelectedBookGenreId != null)
+            {
+                filteredBooks = filteredBooks.Where(b => b.BookGenreId == filterBookModel.SelectedBookGenreId);
+            }
+
+            if (!string.IsNullOrEmpty(filterBookModel.SearchKeyword))
+            {
+                filteredBooks = filteredBooks.Where(b => b.Title.Contains(filterBookModel.SearchKeyword));
+            }
+            
+            
+
+            viewModel.Books = await filteredBooks.ToListAsync();
+            viewModel.Bookmarks = await _applicationDbContext.Bookmarks
+                                 .Where(x => x.User.Id == userId && filteredBookIds.Contains(x.BookId))
+                                 .ToListAsync();
 
             return PartialView("_BooksTable", viewModel);
         }
 
-        [HttpGet]
-        
+        [HttpGet]      
         public async Task<IActionResult> Info(int Id)
         {
-            var book = Id > 0 ? await _applicationDbContext.Books.Include("Author").FirstOrDefaultAsync(x => x.Id == Id) : null;
+            var book = Id > 0 ? await _applicationDbContext.Books.Include("Author").Include("BookGenre").FirstOrDefaultAsync(x => x.Id == Id) : null;
            
             if (book == null)
             {
@@ -76,8 +102,7 @@ namespace LibraryApp.Controllers
             return PartialView("_BookInformationModal", book);
         }
 
-        [HttpGet]
-        
+        [HttpGet]    
         public async Task<IActionResult> GetViewedBooks()
         {
             var booksIds = LoggedInUser.GetCurrent()?.BooksIds; 
@@ -86,7 +111,10 @@ namespace LibraryApp.Controllers
 
             if(booksIds != null && booksIds.Count != 0)
             {
-                viewModel = await _applicationDbContext.Books.Include("Author").Where(b => booksIds.Contains(b.Id)).ToListAsync();
+                viewModel = await _applicationDbContext.Books.Include("Author")
+                            .Include("BookGenre")
+                            .Where(b => booksIds.Contains(b.Id))
+                            .ToListAsync();
             }
 
             return PartialView("_ViewedBooksTable", viewModel);
@@ -110,8 +138,9 @@ namespace LibraryApp.Controllers
             viewBook.Id = book?.Id;
             viewBook.Title = book?.Title;
             viewBook.Description = book?.Description;
-            viewBook.Genre = book?.Genre;
             viewBook.Pages = book?.Pages;
+            viewBook.SelectedBookGenreId = book?.BookGenreId;
+            viewBook.ListOfBookGenres = _applicationDbContext.BookGenres.ToList();
             viewBook.SelectedAuthorId = book?.AuthorId;
             viewBook.ListOfAuthors = _applicationDbContext.Authors.ToList();
 
@@ -178,7 +207,7 @@ namespace LibraryApp.Controllers
             
             book.Title = createOrUpdateSaveModel.Title;
             book.Description = createOrUpdateSaveModel.Description;
-            book.Genre = createOrUpdateSaveModel.Genre;
+            book.BookGenreId = createOrUpdateSaveModel.SelectedBookGenreId;
             book.Pages = createOrUpdateSaveModel.Pages != null ? createOrUpdateSaveModel.Pages.Value : 0;
             book.Author = author;
             
@@ -208,7 +237,11 @@ namespace LibraryApp.Controllers
                 FileHelper.DeleteFile(book.ImageName);
             }
 
+            var bookmark = await _applicationDbContext.Bookmarks.FirstOrDefaultAsync(b => b.BookId == book.Id);
+
+            _applicationDbContext.Bookmarks.Remove(bookmark);
             _applicationDbContext.Books.Remove(book);
+            
             await _applicationDbContext.SaveChangesAsync();
 
             JSON.StatusCode = 0;
@@ -216,59 +249,6 @@ namespace LibraryApp.Controllers
             return Json(JSON);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> ToggleBookmark(int bookId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var bookmark = await _applicationDbContext.Bookmarks.FirstOrDefaultAsync(x => x.BookId == bookId && x.User.Id == userId);
-
-            if (bookmark != null)
-            {         
-                _applicationDbContext.Remove(bookmark);
-                JSON.Message = "You successfully unbookmarked book!" ;
-            }
-            else
-            {
-                bookmark = new Bookmark();
-                bookmark.BookId = bookId;
-                bookmark.UserId = userId;
-                await _applicationDbContext.Bookmarks.AddAsync(bookmark);
-                JSON.Message = "You successfully bookmarked book!";
-            }
-                         
-            await _applicationDbContext.SaveChangesAsync();
-
-            JSON.StatusCode = 0;
-            
-            return Json(JSON);
-        }
-
-        // Show Bookmarks
-        [HttpGet]
-        [Authorize]
-        public IActionResult BookmarksList()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetBookmarksTable()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var viewModel = new BookViewModel();
-
-            var bookmarks = await _applicationDbContext.Bookmarks.Where(x => x.User.Id == userId).ToListAsync();
-
-            viewModel.Bookmarks = bookmarks;
-
-            var bookIdList = bookmarks.Select(b => b.BookId).ToList();
-
-            viewModel.Books = await _applicationDbContext.Books.Include("Author").Where(b => bookIdList.Contains(b.Id)).ToListAsync();
-
-            return PartialView("_BookmarksTable", viewModel);
-        }
     }
 }
 

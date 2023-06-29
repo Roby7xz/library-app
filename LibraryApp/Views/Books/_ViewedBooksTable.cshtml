@@ -16,8 +16,8 @@
                 <div class="body-item"><img onclick="showZoomedInImage(event)" src="@book.ImageName" class="img_fit icon-hover" height="50" width="50" alt="Book-Cover" /></div>
                 <div class="body-item">@book.Author?.Name @(book.Author?.Age != null ? " (" + book.Author?.Age + ")" : null)</div>
                 <div class="body-item">@book.Title</div>
-                <div class="body-item">@book.Description</div>
-                <div class="body-item">@book.Genre</div>
+                <div class="body-item"><a class="icon-hover" style="color: #b00000;" onclick="showModal(@book.Id, '/Books/Info')">Show more ...</a></div>
+                <div class="body-item">@book.BookGenre?.Name</div>
                 <div class="body-item">@book.Pages</div>
             </div>
         }

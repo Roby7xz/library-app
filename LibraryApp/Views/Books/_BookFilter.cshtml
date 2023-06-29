@@ -1,0 +1,41 @@
+﻿@model LibraryApp.Models.Books.FilterBookViewModel
+
+<form id="FilterBookForm" class="form_filter">
+    <div class="form_row">
+        <label class="form_label">Pick Author</label>
+        <select id="SelectedAuthorId" name="SelectedAuthorId" class="form_select">
+            <option value="0" selected disabled>--- Select author ---</option>
+            @foreach (var author in Model.ListOfAuthors)
+            {
+                <option value="@author.Id">@author.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form_row">
+        <label class="form_label">Pick Genre</label>
+        <select id="SelectedBookGenreId" name="SelectedBookGenreId" class="form_select">
+            <option value="0" selected disabled>--- Select Genre ---</option>
+            @foreach (var genre in Model.ListOfBookGenres)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form_row">
+        <label class="form_label">Search</label>
+        <input class="form_input" type="text" id="SearchKeyword" name="SearchKeyword" placeholder="Search by Title" />
+    </div>
+    <button type="button" class="button" onclick="searchByFilter()">Search</button>
+</form>
+
+<script>
+    function searchByFilter() {
+        var params = {
+            SelectedAuthorId: $("#SelectedAuthorId").val(),
+            SelectedBookGenreId: $("#SelectedBookGenreId").val(),
+            SearchKeyword: $("#SearchKeyword").val()
+        }
+
+        getTable(params);
+    }
+</script>

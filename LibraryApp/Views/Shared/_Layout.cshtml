@@ -44,10 +44,18 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Books" asp-action="BookmarksList">Bookmarks</a>
+                                <a class="nav-link" asp-area="" asp-controller="Bookmarks" asp-action="List">Bookmarks</a>
                             </li>
                         }
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
+
+                        @if (SignInManager.IsSignedIn(User) && (User.IsInRole("SuperAdmin") || User.IsInRole("Admin")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Genres" asp-action="List">Genres</a>
+                            </li>
+                        }
+
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin") )
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="UsersList">Users</a>

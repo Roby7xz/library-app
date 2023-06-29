@@ -1,0 +1,62 @@
+﻿@model LibraryApp.Models.Books.FilterBookViewModel
+@using LibraryApp.Areas.Identity.Data;
+@using LibraryApp.Models.Domain;
+@using Microsoft.AspNetCore.Identity
+@using System.Text.Json;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
+
+<div class="table-title-wrapper">
+    <div class="flex_row">
+        <h1>List of genres</h1>
+
+        <a class="button" onclick="showModal(null, '/Genres/CreateOrUpdateGenre')">
+            Add Genre
+        </a>
+
+    </div>
+</div>
+
+<div id="genre_list"></div>
+
+<script>
+    $(document).ready(function () {
+        getBookGenresTable();
+    });
+
+    function getBookGenresTable() {
+        showLoader();
+
+        $.ajax({
+            type: "GET",
+            url: "/Genres/GetGenresTable",
+            success: function (data) {
+                $("#genre_list").html(data);
+                hideLoader();
+            }
+        });
+    }
+
+    function deleteGenre(genreId) {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: "/Genres/Delete",
+            dataType: "JSON",
+            data: { Id: genreId },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);
+                }
+                getBookGenresTable();
+                hideLoader();
+            }
+        });
+    }
+
+</script>

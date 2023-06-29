@@ -23,12 +23,18 @@
                 </div>
                 <div class="form_row">
                     <label class="form_label">Book Description</label>
-                    <input class="form_input" type="text" id="Description" name="Description" value="@Model?.Description" placeholder="Book Description">
+                    <textarea class="form_input" type="text" id="Description" name="Description" placeholder="Book Description" rows="4" cols="50">@Model?.Description</textarea>
                 </div>
                 <div class="flex_grid_2">
                     <div class="form_row">
-                        <label class="form_label">Book Genre</label>
-                        <input class="form_input" type="text" id="Genre" name="Genre" value="@Model?.Genre" placeholder="Book Genre">
+                        <label class="form_label">Pick Genre</label>
+                        <select id="SelectedBookGenreId" name="SelectedBookGenreId" class="form_select">
+                            <option value="0" selected disabled>--- Select Genre ---</option>
+                            @foreach (var genre in Model.ListOfBookGenres)
+                            {
+                                <option value="@genre.Id" selected=@(genre.Id == Model.SelectedBookGenreId ? "selected" : null)>@genre.Name</option>
+                            }
+                        </select>
                     </div>
                     <div class="form_row">
                         <label class="form_label">Number of pages</label>
@@ -63,7 +69,7 @@
                 Description: {
                     required: true,
                 },
-                Genre: {
+                SelectedBookGenreId: {
                     required: true,
                 },
                 Pages: {

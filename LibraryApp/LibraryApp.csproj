@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Constants\" />
+    <Folder Include="Models\Bookmarks\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

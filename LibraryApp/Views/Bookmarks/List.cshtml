@@ -1,6 +1,8 @@
 ﻿<link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
 
+<div class="table-title-wrapper">
 <h1>List of bookmarks</h1>
+</div>
 
 <div id="bookmark-list">
 </div>
@@ -11,7 +13,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/Books/GetBookmarksTable",
+            url: "/Bookmarks/GetBookmarksTable",
             success: function (data) {
                 $("#bookmark-list").html(data);
                 hideLoader();
@@ -20,6 +22,30 @@
     }
 
     getBookmarksTable();
+
+    function toggleBookmark(bookId) {
+        showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: "/Bookmarks/ToggleBookmark",
+            dataType: "JSON",
+            data: {
+                bookId: bookId
+            },
+            success: function (data) {
+                if (data.statusCode === 0) {
+                    alertify.notify(data.message, 'success', 1);
+                    getBookmarksTable();
+                    hideLoader();
+                }
+                else {
+                    alertify.notify(data.message, 'error', 1);
+                    hideLoader();
+                }
+            }
+        });
+    }
 
     function deleteBook(bookId) {
 
@@ -43,30 +69,6 @@
                         hideLoader();
                         getTable();
                     });
-                }
-            }
-        });
-    }
-
-    function toggleBookmark(bookId) {
-        showLoader();
-
-        $.ajax({
-            type: "POST",
-            url: "/Books/ToggleBookmark",
-            dataType: "JSON",
-            data: {
-                bookId: bookId
-            },
-            success: function (data) {
-                if (data.statusCode === 0) {
-                    alertify.notify(data.message, 'success', 1);
-                    getBookmarksTable();
-                    hideLoader();
-                }
-                else {
-                    alertify.notify(data.message, 'error', 1);
-                    hideLoader();
                 }
             }
         });

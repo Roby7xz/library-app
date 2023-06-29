@@ -16,6 +16,7 @@ namespace LibraryApp.Data
     
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<BookGenre> BookGenres { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,6 +30,7 @@ namespace LibraryApp.Data
                    .WithMany()
                    .HasForeignKey(b => b.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
+
         }      
     }
 
@@ -41,7 +43,6 @@ namespace LibraryApp.Data
             builder.Property(x => x.FirstName).HasMaxLength(255);
             builder.Property(x => x.LastName).HasMaxLength(255);
         }
-
         
     }
 

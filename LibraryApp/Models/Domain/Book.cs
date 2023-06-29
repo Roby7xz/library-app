@@ -14,13 +14,15 @@ namespace LibraryApp.Models.Domain
 
         public string Description { get; set; }
 
-        public string Genre { get; set; }
-
         public int Pages { get; set; }
 
         public int? AuthorId { get; set; }
 
         public virtual Author? Author { get; set; }
+
+        public int? BookGenreId { get; set; }
+
+        public virtual BookGenre? BookGenre { get; set; }
 
     }
 }

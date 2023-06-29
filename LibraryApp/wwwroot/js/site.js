@@ -96,4 +96,3 @@ function showPreviewImage(event) {
 
     reader.readAsDataURL(file);
 }
-

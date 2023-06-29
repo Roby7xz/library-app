@@ -15,38 +15,43 @@
         <div class="header-item">Genre</div>
         <div class="header-item">Pages</div>
         <div class="header-item">Options</div>
-
     </div>
     <div class="table-body">
+        @if(Model.Books.Count == 0)
+        {
+            <div class="table-body-inner error-message">
+                <div class="body-item">No books found.</div>
+            </div>
+        }
+
         @foreach (var book in Model.Books)
         {
             <div class="table-body-inner">
                 <div class="body-item"><img onclick="showZoomedInImage(event)" src="@book.ImageName" class="img_fit icon-hover" height="50" width="50" alt="Book-Cover" /></div>
                 <div class="body-item">@book.Author?.Name @(book.Author?.Age != null ? " (" + book.Author?.Age + ")" : null)</div>
                 <div class="body-item">@book.Title</div>
-                <div class="body-item">@book.Description</div>
-                <div class="body-item">@book.Genre</div>
+                <div class="body-item"><a class="icon-hover" style="color: #b00000;" onclick="showModal(@book.Id, '/Books/Info')">Show more ...</a></div>
+                <div class="body-item">@book.BookGenre?.Name</div>
                 <div class="body-item">@book.Pages</div>
                 <div class="body-item options">
-                @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
-                {
+                    @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+                    {
                         <i onclick="showModal(@book.Id, '/Books/CreateOrUpdateBook')" class="fa-solid fa-pen-to-square fa-lg icon-hover" style="color: #b00000;"></i>
                         <i onclick="showConfirmationModal('Are you shure that you want to delete book: @book.Title?', function () {deleteBook('@book.Id')})" class="fa-solid fa-trash fa-lg icon-hover" style="color: #b00000;"></i>
-                }
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    var userId = UserManager.FindByEmailAsync(User.Identity?.Name).Result.Id;
-                    var bookmark = Model.Bookmarks.Find(x => x.BookId == book.Id && x.User.Id == userId);
-                        
-                    <i
-                           onclick="toggleBookmark(@book.Id)"
+                    }
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var userId = UserManager.FindByEmailAsync(User.Identity?.Name).Result.Id;
+                        var bookmark = Model.Bookmarks.Find(x => x.BookId == book.Id && x.User.Id == userId);
+
+                        <i onclick="toggleBookmark(@book.Id)"
                            class="fa-solid fa-bookmark fa-lg icon-hover"
                            style=@(bookmark != null ? ("color:yellow") : ("color:#b00000"))>
-                    </i>                        
-                }
+                        </i>
+                    }
                     <i onclick="showModal(@book.Id, '/Books/Info')" class="fa-solid fa-circle-info fa-lg icon-hover" style="color: #b00000;"></i>
                 </div>
             </div>
         }
     </div>
-</div>
+</div>                         

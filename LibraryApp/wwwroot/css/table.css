@@ -1,8 +1,7 @@
 ﻿.table-title-wrapper {
   margin: 20px 0px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 @media (max-width: 500px) {
   .table-title-wrapper {
@@ -85,6 +84,12 @@
   flex-direction: row;
   flex-wrap: wrap;
   padding: 8px;
+}
+.table-body-inner.error-message {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+.table-body-inner.error-message:hover {
+  background-color: rgba(255, 0, 0, 0.8);
 }
 .table-body-inner:hover {
   background-color: whitesmoke;

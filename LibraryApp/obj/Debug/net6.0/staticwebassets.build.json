@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5A5I7jeQVIA1KN3UbiGz7jFwCdcZ7N1pZUXjd5kmr74=",
+  "Hash": "Vkb8FN07M+4meJh/5Me/4XvbGh6d2L3pIKA9T3jPpfk=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1224,6 +1224,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\20230627112123-robs.gif",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/books/20230627112123-robs.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\books\\20230627112123-robs.gif"
+    },
+    {
       "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\default-book-cover.jpg",
       "SourceId": "LibraryApp",
       "SourceType": "Discovered",
@@ -1290,6 +1307,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\profiles\\20230620145207-download.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\profiles\\20230626155215-robs.gif",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/profiles/20230626155215-robs.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\profiles\\20230626155215-robs.gif"
     },
     {
       "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\profiles\\default-profile-image.png",

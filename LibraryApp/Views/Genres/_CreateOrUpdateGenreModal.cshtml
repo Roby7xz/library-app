@@ -1,0 +1,61 @@
+﻿@model LibraryApp.Models.Genres.CreateOrUpdateGenreModel
+
+<div class="modal_overlay">
+    <div class="modal_container">
+        <div class="modal_header">
+            <h4>@(Model?.Id > 0 ? "Edit Genre" : "Add genre")</h4>
+            <i id="close" onclick="hideModal()" class="fa-solid fa-xmark fa-xl icon-hover"></i>
+        </div>
+        <div class="modal_body">
+            <form id="CreateEditBookGenreForm" class="form">
+                <input type="hidden" id="Id" name="Id" value="@Model?.Id">
+                <div class="form_row">
+                    <label class="form_label">Genre Name</label>
+                    <input id="Name" name="Name" class="form_input" type="text" value="@Model?.Name" placeholder="Genre Name">
+                </div>
+                <button type="button" class="button" onclick="onSave()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        $("#CreateEditBookGenreForm").validate({
+            rules: {
+                Name: {
+                    required: true,
+                },
+            }
+        });
+
+        function onSave() {
+            if (!$("#CreateEditBookGenreForm").valid()) {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Genres/CreateOrUpdateGenre",
+                data: {
+                    Id: $("#Id").val(),
+                    Name: $("#Name").val()
+                },
+                success: function (data) {
+                    if (data.statusCode === 0) {
+                        alertify.notify(data.message, 'success', 1);
+                        hideLoader();
+                        hideModal();
+                        getBookGenresTable();
+                    }
+                    else {
+                        alertify.notify(data.message, 'error', 1, function () {
+                            hideLoader();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</div>
+
+

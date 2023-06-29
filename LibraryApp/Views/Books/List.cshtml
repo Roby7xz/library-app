@@ -1,4 +1,4 @@
-﻿@model LibraryApp.Models.Books.BookViewModel
+﻿@model LibraryApp.Models.Books.FilterBookViewModel
 @using LibraryApp.Areas.Identity.Data;
 @using LibraryApp.Models.Domain;
 @using Microsoft.AspNetCore.Identity
@@ -9,17 +9,20 @@
 <link rel="stylesheet" href="~/css/table.min.css" asp-append-version="true" />
 
 <div class="table-title-wrapper">
-    <h1>List of books</h1>
+    <div class="flex_row">
+        <h1>List of books</h1>
 
-    @{
-        if (SignInManager.IsSignedIn(User) && (User.IsInRole("SuperAdmin") || User.IsInRole("SuperAdmin")))
-        {
-            <a class="button" onclick="showModal(null, '/Books/CreateOrUpdateBook')">
-                Add Book
-            </a>
+        @{
+            if (SignInManager.IsSignedIn(User) && (User.IsInRole("SuperAdmin") || User.IsInRole("SuperAdmin")))
+            {
+                <a class="button" onclick="showModal(null, '/Books/CreateOrUpdateBook')">
+                    Add Book
+                </a>
+            }
         }
-    }
-   
+    </div>   
+
+    <partial name="_BookFilter" />   
 </div>
 
 <div id="book-list"></div>
@@ -37,12 +40,13 @@
         getViewedBooksTable();
     });
 
-    function getTable() {
+    function getTable(params) {
         showLoader();
         
         $.ajax({
             type: "GET",
             url: "/Books/GetBooksTable",
+            data: params,
             success: function (data) {
                 $("#book-list").html(data);
                 hideLoader();
@@ -54,7 +58,7 @@
         showLoader();
         $.ajax({
             type: "POST",
-            url: "/Books/ToggleBookmark",
+            url: "/Bookmarks/ToggleBookmark",
             dataType: "JSON",
             data: {
                 bookId: bookId

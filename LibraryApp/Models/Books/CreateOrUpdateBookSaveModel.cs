@@ -14,11 +14,11 @@ namespace LibraryApp.Models.Books
         [Required(ErrorMessage = "Description is required.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Genre is required.")]
-        public string Genre { get; set; }
-
         [Required(ErrorMessage = "Number of pages is required.")]
         public int? Pages { get; set; }
+
+        [Required(ErrorMessage = "Genre is required.")]
+        public int? SelectedBookGenreId { get; set; }
 
         [Required(ErrorMessage = "Author is required.")]
         public int? SelectedAuthorId { get; set; }

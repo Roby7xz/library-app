@@ -2,7 +2,7 @@
 
 .table-title-wrapper {
     margin: 20px 0px;
-    @include flex-center-content;
+    @include flex-column;
 
     @include size_XS {
         margin: 10px 0;
@@ -65,18 +65,19 @@
             }
         }
     }
+
     .body-item.options {
         gap: 5px;
-    
+
         @include size_XS {
             gap: 2px;
         }
     }
-    
+
     &-body {
         @include flex-column;
         gap: 10px;
-    
+
         &-inner {
             transition: all .2s ease-in;
             border: 1px solid #bdc3c7;
@@ -84,21 +85,29 @@
             @include flex-row;
             flex-wrap: wrap;
             padding: 8px;
-    
+
+            &.error-message {
+                background-color: rgb(255, 0, 0, 0.7);
+
+                &:hover {
+                    background-color: rgb(255, 0, 0, 0.8);
+                }
+            }
+
             &:hover {
                 background-color: whitesmoke;
                 border: 1px solid transparent;
                 transform: scale(1.02);
                 box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
             }
-    
+
             @include size_XS {
                 padding: 4px;
                 font-size: 10px;
                 flex: 1 1 0;
             }
         }
-    
+
         @include size_XS {
             gap: 4px;
         }

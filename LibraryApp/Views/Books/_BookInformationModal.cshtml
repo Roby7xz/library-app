@@ -10,8 +10,8 @@
             <img onclick="showZoomedInImage(event)" class="modal_body_item" src="@Model.ImageName" height="50" width="50" alt="Book-Cover" />
             <div><span class="modal_body_item">Author:</span>  @Model?.Author?.Name</div>
             <div><span class="modal_body_item">Title:</span>  @Model?.Title</div>
-            <div><span class="modal_body_item">Desc:</span>  @Model?.Description</div>
-            <div><span class="modal_body_item">Genre:</span>  @Model?.Genre</div>
+            <div style="white-space: pre-line"><span class="modal_body_item">Desc:</span> @Model?.Description</div>
+            <div><span class="modal_body_item">Genre:</span>  @Model?.BookGenre?.Name</div>
             <div><span class="modal_body_item">Pages:</span>@Model?.Pages</div>
         </div>        
     </div>

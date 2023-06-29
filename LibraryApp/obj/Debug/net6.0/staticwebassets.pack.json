@@ -45,6 +45,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\20230627112123-robs.gif",
+      "PackagePath": "staticwebassets\\images\\books\\20230627112123-robs.gif"
+    },
+    {
       "Id": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\default-book-cover.jpg",
       "PackagePath": "staticwebassets\\images\\books\\default-book-cover.jpg"
     },
@@ -59,6 +63,10 @@
     {
       "Id": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\profiles\\20230620145207-download.jpg",
       "PackagePath": "staticwebassets\\images\\profiles\\20230620145207-download.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\profiles\\20230626155215-robs.gif",
+      "PackagePath": "staticwebassets\\images\\profiles\\20230626155215-robs.gif"
     },
     {
       "Id": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\profiles\\default-profile-image.png",

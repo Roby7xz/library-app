@@ -1,0 +1,25 @@
+﻿@using LibraryApp.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@using System.Text.Json;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<div class="table">
+    <div class="table-header">
+        <div class="header-item">Name</div>
+        <div class="header-item">Options</div>
+    </div>
+    <div class="table-body">
+        @foreach (var genre in Model)
+        {
+            <div class="table-body-inner">
+                <div class="body-item">@genre.Name</div>
+                <div class="body-item options">
+                    <i onclick="showModal(@genre.Id, '/Genres/CreateOrUpdateGenre')" class="fa-solid fa-pen-to-square fa-lg icon-hover" style="color: #b00000;"></i>
+                    <i onclick="showConfirmationModal('Are you shure that you want to delete book: @genre.Name?', function () {deleteGenre('@genre.Id')})" class="fa-solid fa-trash fa-lg icon-hover" style="color: #b00000;"></i>
+                </div>
+            </div>
+        }
+    </div>
+</div>

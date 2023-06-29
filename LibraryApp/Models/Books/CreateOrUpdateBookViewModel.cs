@@ -14,9 +14,11 @@ namespace LibraryApp.Models.Books
 
         public string Description { get; set; }
 
-        public string Genre { get; set; }
-
         public int? Pages { get; set; }
+
+        public int? SelectedBookGenreId { get; set; }
+
+        public List<BookGenre> ListOfBookGenres { get; set; }
 
         public int? SelectedAuthorId { get; set; }
         
