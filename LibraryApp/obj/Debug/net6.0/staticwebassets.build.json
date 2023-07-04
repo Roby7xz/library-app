@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EmZveeX/phB5+rStIhY/jAzkPQQUVQAROROqHGKvBy4=",
+  "Hash": "SAGKBg0pB0cBfmfXurDF2dJ7vY429u0Dmli0Ir4sRiw=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1256,6 +1256,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\books\\20230629091641-photo-1511367461989-f85a21fda167.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\20230703094131-robs.gif",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/books/20230703094131-robs.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\books\\20230703094131-robs.gif"
     },
     {
       "Identity": "C:\\Users\\Hotelstouch\\source\\repos\\library-app\\LibraryApp\\wwwroot\\images\\books\\default-book-cover.jpg",

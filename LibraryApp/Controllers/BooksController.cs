@@ -6,8 +6,13 @@ using LibraryApp.Models.Books;
 using LibraryApp.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Channels;
 
 namespace LibraryApp.Controllers
 {
@@ -34,29 +39,16 @@ namespace LibraryApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBooksTable([FromQuery] FilterBookSaveModel filterBookModel)
+        public async Task<IActionResult> GetBooksTable(FilterBookSaveModel filterBookModel)
         {
             var viewModel = new BookViewModel();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var filteredBooks = await _applicationDbContext.Books.Include("Author").Include("BookGenre").ToListAsync();
+            var books = await _applicationDbContext.Books.Include("Author").Include("BookGenre").ToListAsync();
 
-            var filteredBookIds = filteredBooks.Select(b => b.Id); 
+            var filteredBooks = FilterHelper.FilterBooks(books, filterBookModel);
 
-            if (filterBookModel.SelectedAuthorId != null)
-            {
-                filteredBooks = filteredBooks.Where(b => b.AuthorId == filterBookModel.SelectedAuthorId).ToList();
-            }
-
-            if (filterBookModel.SelectedBookGenreId != null)
-            {
-                filteredBooks = filteredBooks.Where(b => b.BookGenreId == filterBookModel.SelectedBookGenreId).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(filterBookModel.SearchKeyword))
-            {
-                filteredBooks = filteredBooks.Where(b => b.Title.Contains(filterBookModel.SearchKeyword)).ToList();
-            }        
+            var filteredBookIds = filteredBooks.Select(b => b.Id);
 
             viewModel.Books = filteredBooks;
             viewModel.Bookmarks = await _applicationDbContext.Bookmarks
@@ -64,6 +56,30 @@ namespace LibraryApp.Controllers
                                  .ToListAsync();
 
             return PartialView("_BooksTable", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBooksExcelReport(FilterBookSaveModel filterBookModel)
+        {
+            var books = await _applicationDbContext.Books.Include("Author").Include("BookGenre").ToListAsync();
+
+            var filteredBooks = FilterHelper.FilterBooks(books, filterBookModel);
+
+            return File(ExportReportHelper.GenerateBooksExcelReport(filteredBooks), 
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+                        DateTime.UtcNow.ToString() + " - Books_Report.xlsx");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBooksPDFReport(FilterBookSaveModel filterBookModel)
+        {
+            var books = await _applicationDbContext.Books.Include("Author").Include("BookGenre").ToListAsync();
+
+            var filteredBooks = FilterHelper.FilterBooks(books, filterBookModel);
+
+            return File(ExportReportHelper.GenerateBooksPDFReport(filteredBooks),
+                        "application/pdf",
+                        DateTime.UtcNow.ToString() + " - Books_Report.pdf");
         }
 
         [HttpGet]      

@@ -25,10 +25,13 @@
         <label class="form_label">Search</label>
         <input class="form_input" type="text" id="SearchKeyword" name="SearchKeyword" placeholder="Search by Title" />
     </div>
-    <button type="button" class="button" onclick="searchByFilter()">Search</button>
+    <button type="button" class="button" onclick="searchByFilter()">Search</button> 
+    <button type="button" class="button" onclick="onClickExportBooksReport('/Books/GetBooksExcelReport')">Export to Excel</button>
+    <button type="button" class="button" onclick="onClickExportBooksReport('/Books/GetBooksPDFReport')">Export to PDF</button>
 </form>
 
 <script>
+
     function searchByFilter() {
         var params = {
             SelectedAuthorId: $("#SelectedAuthorId").val(),
@@ -38,4 +41,45 @@
 
         getTable(params);
     }
+
+    function onClickExportBooksReport(url) {
+
+        var params = {
+            SelectedAuthorId: $("#SelectedAuthorId").val(),
+            SelectedBookGenreId: $("#SelectedBookGenreId").val(),
+            SearchKeyword: $("#SearchKeyword").val()
+        };
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: params,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data, textStatus, xhr) {
+                var fileName = "";
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    var fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = fileNameRegex.exec(disposition);
+                    if (matches != null && matches[1]) fileName = matches[1].replace(/['"]/g, '');
+                }
+
+                var fileURL = URL.createObjectURL(data);
+
+                var a = document.createElement('a');
+                a.href = fileURL;
+                a.download = fileName;
+                a.style.display = 'none';
+
+                $("body").append(a);
+                a.click();
+                URL.revokeObjectURL(fileURL);
+                $("body").remove(a);
+            }
+        });
+    }
+
 </script>

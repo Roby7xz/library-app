@@ -96,3 +96,8 @@ function showPreviewImage(event) {
 
     reader.readAsDataURL(file);
 }
+
+
+function initializeDownload(data, xhr) {
+
+}
