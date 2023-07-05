@@ -44,42 +44,23 @@
 
     function onClickExportBooksReport(url) {
 
-        var params = {
+        var downloadUrl = new URL(url, window.location.origin);
+
+        var params = [{
             SelectedAuthorId: $("#SelectedAuthorId").val(),
             SelectedBookGenreId: $("#SelectedBookGenreId").val(),
             SearchKeyword: $("#SearchKeyword").val()
-        };
+        }];
 
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: params,
-            xhrFields: {
-                responseType: 'blob'
-            },
-            success: function (data, textStatus, xhr) {
-                var fileName = "";
-                var disposition = xhr.getResponseHeader('Content-Disposition');
+        params.forEach(function(item) {
+            var keys = Object.keys(item);
 
-                if (disposition && disposition.indexOf('attachment') !== -1) {
-                    var fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                    var matches = fileNameRegex.exec(disposition);
-                    if (matches != null && matches[1]) fileName = matches[1].replace(/['"]/g, '');
-                }
-
-                var fileURL = URL.createObjectURL(data);
-
-                var a = document.createElement('a');
-                a.href = fileURL;
-                a.download = fileName;
-                a.style.display = 'none';
-
-                $("body").append(a);
-                a.click();
-                URL.revokeObjectURL(fileURL);
-                $("body").remove(a);
-            }
+            keys.forEach(function (key) {
+                downloadUrl.searchParams.append(key, item[key]);
+            });
         });
+
+        window.open(downloadUrl, '_blank');
     }
 
 </script>

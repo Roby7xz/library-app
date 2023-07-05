@@ -65,9 +65,9 @@ namespace LibraryApp.Controllers
 
             var filteredBooks = FilterHelper.FilterBooks(books, filterBookModel);
 
-            return File(ExportReportHelper.GenerateBooksExcelReport(filteredBooks), 
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-                        DateTime.UtcNow.ToString() + " - Books_Report.xlsx");
+            var fileName = DateTime.Now.ToString() + " - Books_Report.xlsx";
+
+            return File(ExportReportHelper.GenerateBooksExcelReport(filteredBooks), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         [HttpGet]
@@ -77,9 +77,10 @@ namespace LibraryApp.Controllers
 
             var filteredBooks = FilterHelper.FilterBooks(books, filterBookModel);
 
-            return File(ExportReportHelper.GenerateBooksPDFReport(filteredBooks),
-                        "application/pdf",
-                        DateTime.UtcNow.ToString() + " - Books_Report.pdf");
+            var fileName = DateTime.Now.ToString() + " - Books_Report.pdf";
+
+            return File(ExportReportHelper.GenerateBooksPDFReport(filteredBooks), "application/pdf", fileName);
+
         }
 
         [HttpGet]      
